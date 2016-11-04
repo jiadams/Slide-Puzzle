@@ -1,3 +1,4 @@
+"use strict"
 var SlidePuzzle = function (width,height) {
     this.w = width;
     this.h = height;
@@ -23,11 +24,9 @@ SlidePuzzle.prototype.startGame = function() {
 
 SlidePuzzle.prototype.buildBoard = function() {
     if(this.w === undefined || isNaN(this.w)) {
-        console.log("Please define width as a Number.");
         return false;
     }
     if (this.h === undefined || isNaN(this.h)) {
-        console.log("Please define height as a Number");
         return false;
     }
     var i, j, k, tempArray = [], arrLen = this.w * this.h, boardArray;
@@ -48,7 +47,7 @@ SlidePuzzle.prototype.buildBoard = function() {
 };
 
 SlidePuzzle.prototype.shuffleBoard = function() {
-    var tempArray = this.boardLine;
+    var i, j, k, tempArray = this.boardLine;
     do {
         tempArray = this.shuffle(tempArray);
     } while (!this.solvable(tempArray));
@@ -111,10 +110,10 @@ SlidePuzzle.prototype.shuffle = function(array) {
 };
 
 SlidePuzzle.prototype.createMDArray = function() {
-    var array = [];
-    for (var i = 0; i < this.h; i++) {
+    var i, j, array = [];
+    for (i = 0; i < this.h; i++) {
         array[i] = [];
-        for (var j = 0; j < this.w; j++) {
+        for (j = 0; j < this.w; j++) {
             array[i][j] = '';
         }
     }
@@ -122,7 +121,7 @@ SlidePuzzle.prototype.createMDArray = function() {
 };
 
 SlidePuzzle.prototype.drawBoard = function() {
-    var $tileNode, $gameNode = $("#game-board");
+    var $tileNode, nodeValue, $gameNode = $("#game-board");
     $gameNode.empty();
     var i, j;
     for(i = 0; i < this.board.length; i++) {
@@ -132,7 +131,6 @@ SlidePuzzle.prototype.drawBoard = function() {
                 $tileNode = $("<div></div>").addClass("block").html(nodeValue).css({
                     top : 100 * i,
                     left : 100 * j,
-                    
                 }).attr({
                     'data-row' : i,
                     'data-col' : j,
@@ -149,7 +147,6 @@ SlidePuzzle.prototype.drawBoard = function() {
                     'data-col' : j
                 }).appendTo($gameNode);
             }
-            
         }
     }
     $($gameNode).css({
@@ -157,6 +154,7 @@ SlidePuzzle.prototype.drawBoard = function() {
         height : (this.h * 100)
     });
     this.backgroundSetter();
+    this.checkMoveable();
 };
 
 SlidePuzzle.prototype.backgroundSetter = function() {
@@ -218,6 +216,7 @@ SlidePuzzle.prototype.winAnimation = function() {
     setTimeout(function() {
         $winModal.toggleClass("fade");
     }, 250);
+
 };
 
 SlidePuzzle.prototype.findTile = function(tileValue) {
@@ -231,13 +230,30 @@ SlidePuzzle.prototype.findTile = function(tileValue) {
                 };
             }
         }
-    } 
+    }
     return;
+};
+
+SlidePuzzle.prototype.checkMoveable = function() {
+    var col, row, $tile,
+    blankTileLoc = this.findTile(this.arrLen),
+    blankTileRow =  blankTileLoc.row,
+    blankTileCol = blankTileLoc.col;
+    $('.block').each(function() {
+        $tile = $(this);
+        col = $tile.data('col');
+        row = $tile.data('row');
+        if(!$tile.hasClass('blank') && (col === blankTileCol || row === blankTileRow)) {
+            $tile.addClass('moveable');
+        } else {
+            $tile.removeClass('moveable');
+        }
+    });
 };
 
 SlidePuzzle.prototype.tileMover = function (element, rowDir, colDir) {
     var $tile = $(element),
-    col = Number($tile.data('col')), 
+    col = Number($tile.data('col')),
     row = Number($tile.data('row')),
     $blankTile = $(".block.blank"),
     temp = this.board[row+rowDir][col+colDir];
@@ -264,17 +280,15 @@ SlidePuzzle.prototype.tileMover = function (element, rowDir, colDir) {
             'data-col' : col
         });
     this.moveCounter();
-    if(this.checkSolve()) {
-
-    }
+    this.checkSolve();
     return;
 };
 
 
 SlidePuzzle.prototype.moveTile = function (element) {
     var $tile = $(element),
-    temp;
-    col = Number($tile.data('col')), 
+    temp,
+    col = Number($tile.data('col')),
     row = Number($tile.data('row')),
     blankTileLoc = this.findTile(this.arrLen),
     blankTileRow =  blankTileLoc.row,
@@ -286,7 +300,7 @@ SlidePuzzle.prototype.moveTile = function (element) {
         //console.log("Right");
         this.tileMover(element, 0, 1);
         break;
-    case col > 0 && this.board[row][col-1] === this.arrLen: 
+    case col > 0 && this.board[row][col-1] === this.arrLen:
         //console.log("Left");
         this.tileMover(element, 0, -1);
         break;
@@ -323,6 +337,7 @@ SlidePuzzle.prototype.moveTile = function (element) {
         },250);
     break;
     }
+    this.checkMoveable();
     return;
 };
 

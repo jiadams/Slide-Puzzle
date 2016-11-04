@@ -28,7 +28,7 @@ $(document).ready(function(){
         puzzle.backgroundSetter();
         return false;
     });
-    $(document).on("click", ".win", function (){
+    $(document).on("click touchstart", ".win", function (){
         $winModal = $(this);
         $winModal.addClass('fade');
         setTimeout(function() {

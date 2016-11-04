@@ -24,7 +24,7 @@ var Timer = function(element, delay) {
             clearInterval(interval);
             interval = null;
         }
-        return (clock/1000).toFixed(3);
+        return (clock / 1000).toFixed(3);
     }
 
     function reset() {
@@ -45,11 +45,10 @@ var Timer = function(element, delay) {
     }
 
     function render() {
-        timer.innerHTML = (clock/1000).toFixed(3);
+        timer.innerHTML = (clock / 1000).toFixed(3);
     }
 
     this.start = start;
     this.stop = stop;
     this.reset = reset;
-
-}
+};

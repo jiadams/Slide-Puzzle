@@ -113,8 +113,12 @@ input.warning {
     transition: all .25s ease;
 }
 
-.block .overlay:hover {
+.block.moveable .overlay:hover {
     background-color: rgba(230,230,230,.5);
+}
+
+.block.moveable:hover {
+    border: 2px solid green;
 }
 
 .block.blank {
@@ -172,6 +176,7 @@ input.warning {
 }
 
 .win {
+    display: table;
     visibility: visible;
     opacity: 1;
     width: 100%;
@@ -194,7 +199,11 @@ input.warning {
 }
 
 .win h1 {
+    display: table-cell;
     vertical-align: middle;
-    line-height: 90vh;
     margin: 0;
+}
+
+.win h1>small {
+    font-size: 3rem;
 }
