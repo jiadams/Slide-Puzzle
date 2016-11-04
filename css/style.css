@@ -1,7 +1,78 @@
 html, body {
     margin: 0;
-    font-size: 16px;
     padding: 0;
+    font-size: 16px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+*,*:after,*:before {
+    box-sizing: border-box;
+}
+
+.container:after,.row:after,.clear-fix:after {
+    clear: both;
+    content: " ";
+    display: table;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse
+}
+
+.table>thead>tr>th {
+    padding: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+.table>tbody>tr>td {
+    padding: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.table>tbody>tr:nth-of-type(even) {
+    background: #ccc;
+}
+
+span.warning {
+    display: block;
+    color: red;
+}
+
+input.warning {
+    border: solid red 1px;
+    background: red;
+    background-color: rgba(255, 0, 0, .1);
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+}
+
+/*Skeleton*/
+
+.col-1-2, .col-1-1, .col-1-3, .col-1-4 {
+    float: left;
+}
+
+.col-offset-1-4 {
+    margin-left: 25%;
+}
+
+.col-1-4 {
+    width: 25%;
+    padding-right: 15px;
+}
+.col-1-3 {
+    width: 33.3333333%;
+    padding-right: 15px;
+}
+.col-1-2 {
+    width: 50%;
+    padding-right: 15px;
+}
+.col-1-1 {
+    width: 100%;
 }
 
 .text-center {
@@ -38,7 +109,8 @@ html, body {
     width: 96px;
     height: 96px;
     z-index: 10;
-    transition: all .25 ease;
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
 }
 
 .block .overlay:hover {
@@ -59,4 +131,70 @@ html, body {
     border: 5px outset #ccc;
     color: #fff;
     font-size: 2em;
+}
+
+#move-count, #game-timer  {
+    margin: 25px 0;
+    border: solid black 2px;
+    padding: 30px 0;
+    font-size: 3em;
+}
+
+#game-timer {
+    font-size: 3em;
+}
+
+#background-form input[type=text] {
+    padding: 5px 10px;
+}
+
+#puzzle-size input[type=number] {
+    text-align: center;
+    padding: 5px 10px;
+    width: 4rem;
+}
+
+#puzzle-size input[type=submit], #background-form input[type=submit] {
+    margin: 15px 0;
+    padding: 5px 10px;
+}
+
+#background-form label {
+    margin: 5px auto;
+    display: block;
+}
+
+#background-form img {
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: auto;
+}
+
+.win {
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0; 
+    text-align: center;
+    background: #fff;
+    background-color: rgba(255, 255, 255, .66);
+    z-index: 100;
+    font-size: 4em;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.win.fade {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.win h1 {
+    vertical-align: middle;
+    line-height: 90vh;
+    margin: 0;
 }

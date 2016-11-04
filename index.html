@@ -1,35 +1,99 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Project 3</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
-<body>
-    <div class="wrapper">
-        <h1>Fifteen Puzzle</h1>
-        <p>The goal of the 15 puzzle, or n-Puzzle depending on the number of tiles. It is a simple classic game consisting of a 4x4 grid of numbered squares with one square missing. The object of the game is to arrange the tiles into numerical order by repeatedly sliding a square that neighbors the missing square into its empty space.</p>
-        <div id="game-board"></div>
-        <div class="game-controls-container">
-            <div class="row">
-                <div class="col-1-1">
-                    <button id="shuffle-btn">Shuffle</button>
+    <head>
+        <meta charset="UTF-8">
+        <title>Project 3</title>
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="text-center">Fifteen Puzzle</h1>
+                <p>The goal of the 15 puzzle, or n-Puzzle depending on the number of tiles. It is a simple classic game consisting of a 4x4 grid of numbered squares with one square missing. The object of the game is to arrange the tiles into numerical order by repeatedly sliding a square that neighbors the missing square into its empty space.</p>
+                <div id="game-board"></div>
+                <div class="game-controls-container">
+                    <div class="row">
+                        <div class="col-1-1">
+                            <button id="shuffle-btn">Shuffle</button>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-1-2">
+                            <div id="move-count">Moves: <span>0</span></div>
+                        </div>
+                        <div class="col-1-2">
+                            <div id="game-timer">Time: </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-1-2">
-                    <div id="move-count">Moves: <span>0</span></div>
-                </div>
-                <div class="col-1-2">
-                    <div id="game-timer">Time: </div>
+                <form id="puzzle-size" class="text-center">
+                    <div class="row">
+                        <div class="col-1-1">
+                            <input type="number" name="width" value="4">
+                            x
+                            <input type="number" name="height" value="4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1-1">
+                            <input type="submit" value="Change Size">
+                        </div>
+                    </div>
+                </form>
+                <form id="background-form" class="text-center">
+                    <div class="row">
+                        <div class="col-1-4">
+                            <label for="planet"><img src="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/planet-bg.jpg" alt="Saturn"></label>
+                            <input type="radio" name="background" id="planet" value="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/planet-bg.jpg">
+                        </div>
+                        <div class="col-1-4">
+                            <label for="wings"><img src="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/wings-bg.jpg" alt="Wings"></label>
+                            <input type="radio" name="background" id="wings" value="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/wings-bg.jpg">
+                        </div>
+                        <div class="col-1-4">
+                            <label for="flash"><img src="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/flash-bg.jpg" alt="Flash"></label>
+                            <input type="radio" name="background" id="flash" value="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/flash-bg.jpg">
+                        </div>
+                        <div class="col-1-4">
+                            <label for="mario"><img src="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/paper-mario-bg.jpg" alt="Mario"></label>
+                            <input type="radio" name="background" id="mario" value="http://codd.cs.gsu.edu/~jadams50/projects/project-3/images/paper-mario-bg.jpg">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="custom">Custom Image</label>
+                        <input type="radio" name="background" id="custom" value="custom"><br>
+                        <label for="custom-url">Enter Custom URL(only excepts .jpeg, .jpg, .gif, and .png Urls)</label>
+                        <input type="text" name="custom-url" id="custom-url">
+                    </div>
+                    <div class="row">
+                        <div class="col-1-1">
+                            <input type="submit" name="custom-url"  value="Change Background">
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-1-1 text-center">
+                        <h2>Personal Times</h2>
+                        <table id="personal-records" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Try</th>
+                                    <th>Puzzle Size:</th>
+                                    <th>Moves:</th>
+                                    <th>Time(sec):</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript" src="./js/timer.js"></script>
-    <script type="text/javascript" src="./js/slide-puzzle.js"></script>
-    <script type="text/javascript" src="./js/scripts.js"></script>
-</body>
+        <script type="text/javascript" src="./js/timer.js"></script>
+        <script type="text/javascript" src="./js/slide-puzzle.js"></script>
+        <script type="text/javascript" src="./js/scripts.js"></script>
+    </body>
 </html>
