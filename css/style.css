@@ -79,6 +79,10 @@ input.warning {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .wrapper {
     margin: 0 auto;
     width: 100%;
@@ -114,6 +118,7 @@ input.warning {
 }
 
 .block.moveable .overlay:hover {
+    cursor: pointer;
     background-color: rgba(230,230,230,.5);
 }
 
